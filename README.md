@@ -147,6 +147,7 @@ Rounds all logits to a fixed number of decimal places via `torch.round(logits * 
 Gaussian noise had no measurable effect across all tested values, with attack accuracy remaining at 0.68–0.70 — indistinguishable from the baseline. This is because KEDMI's distributional recovery optimizes over 2400 iterations, each sampling a fresh latent vector, so per-query noise averages out and the optimizer remains unaffected. This suggests noise-based defenses, while effective against single-query attacks as shown in Fredrikson et al. (CCS 2015), do not transfer to iterative distributional optimization.
 
 Top-k masking shows a clear relationship between k and defense strength — k=50 reduces attack accuracy to 0.44, k=10 to 0.09, k=5 to 0.03, and k=1 to 0.00. Confidence truncation to just 2 decimal places alone reduces attack accuracy from 0.68 to 0.00, making it the strongest single defense found. Any combination involving truncation also achieves 0.00, confirming truncation dominates when combined. Notably, adding noise on top of top-k provides no meaningful improvement over top-k alone. This means that adding noise is not a safety measure for this type of attack but the other two formats does.Both effective defenses introduce a utility trade-off. Top-k masking reduces the information returned to the caller, and truncation reduces its precision. This is an inherent privacy-utility trade-off where stronger protection requires exposing less information to the end user.
+
 ---
 
 ## Citation
