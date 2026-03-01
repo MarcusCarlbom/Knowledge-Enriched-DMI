@@ -98,19 +98,20 @@ Two utility files were also added:
 
 ## Security Extensions
 
-All three defenses operate at inference time inside `VGG16.forward()` in `classify.py`. The call sequence is: `recovery.py` sets defense parameters on the model → `attack.py` calls `T(fake)[-1]` → `VGG16.forward()` calls `defend_output(res, ...)` → the attacker receives only the defended logits. All defenses add zero meaningful computational overhead as they are single tensor operations on already-computed logits.
+All three defenses operate at inference time inside `VGG16.forward()` in `classify.py`. The call sequence is that `recovery.py` sets defense parameters on the model, then `attack.py` calls `T(fake)[-1]`, then `VGG16.forward()` calls `defend_output(res, ...)`, and the attacker receives only the defended logits. All defenses add zero meaningful computational overhead as they are single tensor operations on already-computed logits.
 
-### Defense 1 — Gaussian Output Perturbation
+### Defense 1 Gaussian Output Perturbation
 
-Adds Gaussian noise with standard deviation `noise_std` to all 1000 output logits via `torch.randn_like(logits) * noise_std`. The motivation follows Fredrikson et al., who showed that confidence score perturbation can reduce model inversion effectiveness — see [Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures](https://rist.tech.cornell.edu/papers/mi-ccs.pdf) (CCS 2015). Legitimate users are unaffected since the correct class scores far higher than any other, so small noise never flips the top-1 ranking.
+Adds Gaussian noise with standard deviation `noise_std` to all 1000 output logits via `torch.randn_like(logits) * noise_std`. The motivation follows Fredrikson et al., who showed that confidence score perturbation can reduce model inversion effectiveness, see [Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures](https://rist.tech.cornell.edu/papers/mi-ccs.pdf) (CCS 2015). Legitimate users are unaffected since the correct class scores far higher than any other, so small noise never flips the top-1 ranking.
 
-### Defense 2 — Top-k Masking
+### Defense 2 Top-k Masking
 
-Retains only the top-k highest logits and sets all others to −10⁹ using `torch.topk`, a threshold mask, and `(~mask) * (-1e9)`. The attack computes `Iden_Loss = CrossEntropyLoss(out, iden)` using the full 1000-class distribution — removing 99%+ of it forces the optimizer to work with almost no gradient signal. Limiting API responses to top-k predictions is a widely recommended inference-time defense, as discussed in [Model Inversion Attacks: A Survey of Approaches and Countermeasures](https://arxiv.org/abs/2411.10023) (Zhou et al., 2024).
+Retains only the top-k highest logits and sets all others to −10⁹ using `torch.topk`, a threshold mask, and `(~mask) * (-1e9)`. The attack computes `Iden_Loss = CrossEntropyLoss(out, iden)` using the full 1000-class distribution. Removing 99%+ of it forces the optimizer to work with almost no gradient signal. Limiting API responses to top-k predictions is a widely recommended inference-time defense, as discussed in [Model Inversion Attacks: A Survey of Approaches and Countermeasures](https://arxiv.org/abs/2411.10023) (Zhou et al., 2024).
 
-### Defense 3 — Confidence Truncation
+### Defense 3 Confidence Truncation
 
-Rounds all logits to a fixed number of decimal places via `torch.round(logits * scale) / scale`. The attack relies on fine-grained floating point differences across 2400 optimization iterations — truncation destroys this precision entirely. Originally proposed by Fredrikson et al. as a basic countermeasure in [Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures](https://rist.tech.cornell.edu/papers/mi-ccs.pdf) (CCS 2015), this remains underexplored against modern GAN-based attacks.
+Rounds all logits to a fixed number of decimal places via `torch.round(logits * scale) / scale`. The attack relies on fine-grained floating point differences across 2400 optimization iterations and truncation destroys this precision entirely. Originally proposed by Fredrikson et al. as a basic countermeasure in [Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures](https://rist.tech.cornell.edu/papers/mi-ccs.pdf) (CCS 2015), this remains underexplored against modern GAN-based attacks.
+
 ---
 
 ## Results
