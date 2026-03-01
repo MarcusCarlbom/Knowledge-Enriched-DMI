@@ -50,6 +50,8 @@ if __name__ == "__main__":
     logger.info("=> creating model ...")
 
     print("=> Using improved GAN:", args.improved_flag)
+
+    print(f"Defense settings: noise_std={args.noise_std}, top_k={args.top_k}, truncate_decimals={args.truncate_decimals}")
    
     
     

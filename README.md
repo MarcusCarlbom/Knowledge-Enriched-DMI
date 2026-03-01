@@ -9,7 +9,7 @@ Original code: [SCccc21/Knowledge-Enriched-DMI](https://github.com/SCccc21/Knowl
 
 ## Setup
 
-Tested on home gaming computer unning Python 3.12, PyTorch 2.10.0+cu128, CUDA 12.8, on an NVIDIA RTX 5070 Ti, running WSL2 on Windows 11 (Build 26100).
+Tested on home gaming computer running Python 3.12, PyTorch 2.10.0+cu128, CUDA 12.8, on an NVIDIA RTX 5070 Ti, running WSL2 on Windows 11 (Build 26100).
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 pip install numpy scikit-learn Pillow opencv-python pandas matplotlib
@@ -144,9 +144,11 @@ Rounds all logits to a fixed number of decimal places via `torch.round(logits * 
 | noise_0.05 | 0.69 | 0.91 | 0.0018 | 0.0008 |
 | noise_0.01 | 0.70 | 0.90 | 0.0013 | 0.0005 |
 
-Gaussian noise had no measurable effect across all tested values, with attack accuracy remaining at 0.68–0.70 — indistinguishable from the baseline. This is because KEDMI's distributional recovery optimizes over 2400 iterations, each sampling a fresh latent vector, so per-query noise averages out and the optimizer remains unaffected. This suggests noise-based defenses, while effective against single-query attacks as shown in Fredrikson et al. (CCS 2015), do not transfer to iterative distributional optimization.
+Gaussian noise had no measurable effect across all tested values, with attack accuracy remaining at 0.68 to 0.70, indistinguishable from the baseline. This is because KEDMI's distributional recovery optimizes over 2400 iterations, each sampling a fresh latent vector, so per-query noise averages out and the optimizer remains unaffected. This suggests noise-based defenses, while effective against single-query attacks as shown in Fredrikson et al. (CCS 2015), do not transfer to iterative distributional optimization.
 
-Top-k masking shows a clear relationship between k and defense strength — k=50 reduces attack accuracy to 0.44, k=10 to 0.09, k=5 to 0.03, and k=1 to 0.00. Confidence truncation to just 2 decimal places alone reduces attack accuracy from 0.68 to 0.00, making it the strongest single defense found. Any combination involving truncation also achieves 0.00, confirming truncation dominates when combined. Notably, adding noise on top of top-k provides no meaningful improvement over top-k alone. This means that adding noise is not a safety measure for this type of attack but the other two formats does.Both effective defenses introduce a utility trade-off. Top-k masking reduces the information returned to the caller, and truncation reduces its precision. This is an inherent privacy-utility trade-off where stronger protection requires exposing less information to the end user.
+Top-k masking shows a clear relationship between k and defense strength. With k=50 attack accuracy drops to 0.44, k=10 to 0.09, k=5 to 0.03, and k=1 to 0.00. Confidence truncation to just 2 decimal places alone reduces attack accuracy from 0.68 to 0.00, making it the strongest single defense found. Any combination involving truncation also achieves 0.00, confirming truncation dominates when combined. Notably, adding noise on top of top-k provides no meaningful improvement over top-k alone. This means that adding noise is not an effective safety measure for this type of attack, but the other two defenses are. Both effective defenses introduce a utility trade-off. Top-k masking reduces the information returned to the caller, and truncation reduces its precision. This is an inherent privacy-utility trade-off where stronger protection requires exposing less information to the end user.
+
+A final note is that these defenses assume a non-adaptive attacker, meaning the attacker does not adjust their strategy upon encountering the masked values or truncated precision. The results therefore reflect the effectiveness against the current implementation of the KEDMI attack specifically. An adaptive adversary aware of the top-k masking could discard the masked values and optimize solely over the returned scores. An attacker aware of truncation could similarly adjust their optimization step size to compensate for the reduced precision. This is known as the adaptive adversary problem and is a recognized limitation of output-based defenses in the literature. The defenses implemented here are best understood as measures that significantly raise the cost of a successful attack rather than making it impossible, as reducing available information forces the attacker to use a more fine-tuned and targeted approach.
 
 ---
 
