@@ -1,0 +1,82 @@
+=> Using improved GAN: True
+--------------------- Attack batch [0]------------------------------
+Iteration:300	Prior Loss:4.06	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:600	Prior Loss:4.44	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:900	Prior Loss:4.10	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:1200	Prior Loss:4.13	Iden Loss:983333312.00	Attack Acc:0.02
+Iteration:1500	Prior Loss:3.52	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:1800	Prior Loss:3.58	Iden Loss:950000000.00	Attack Acc:0.00
+Iteration:2100	Prior Loss:3.63	Iden Loss:966666624.00	Attack Acc:0.00
+Iteration:2400	Prior Loss:3.86	Iden Loss:950000000.00	Attack Acc:0.02
+Time:83.82
+Time:0.51	Seed:0	Acc:0.00	
+Time:0.35	Seed:1	Acc:0.00	
+Time:0.35	Seed:2	Acc:0.00	
+Time:0.36	Seed:3	Acc:0.00	
+Time:0.35	Seed:4	Acc:0.02	
+Acc:0.00	Acc_5:0.02	Acc_var:0.0001	Acc_var5:0.0002
+--------------------- Attack batch [1]------------------------------
+Iteration:300	Prior Loss:4.80	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:600	Prior Loss:4.13	Iden Loss:983333312.00	Attack Acc:0.02
+Iteration:900	Prior Loss:3.70	Iden Loss:966666624.00	Attack Acc:0.00
+Iteration:1200	Prior Loss:3.89	Iden Loss:966666624.00	Attack Acc:0.00
+Iteration:1500	Prior Loss:3.34	Iden Loss:950000000.00	Attack Acc:0.02
+Iteration:1800	Prior Loss:3.82	Iden Loss:950000000.00	Attack Acc:0.00
+Iteration:2100	Prior Loss:3.74	Iden Loss:950000000.00	Attack Acc:0.00
+Iteration:2400	Prior Loss:3.59	Iden Loss:950000000.00	Attack Acc:0.02
+Time:78.41
+Time:0.34	Seed:0	Acc:0.02	
+Time:0.36	Seed:1	Acc:0.02	
+Time:0.37	Seed:2	Acc:0.03	
+Time:0.37	Seed:3	Acc:0.02	
+Time:0.37	Seed:4	Acc:0.02	
+Acc:0.02	Acc_5:0.03	Acc_var:0.0001	Acc_var5:0.0000
+--------------------- Attack batch [2]------------------------------
+Iteration:300	Prior Loss:4.76	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:600	Prior Loss:4.94	Iden Loss:950000000.00	Attack Acc:0.02
+Iteration:900	Prior Loss:3.96	Iden Loss:916666624.00	Attack Acc:0.03
+Iteration:1200	Prior Loss:4.08	Iden Loss:900000000.00	Attack Acc:0.03
+Iteration:1500	Prior Loss:3.73	Iden Loss:866666624.00	Attack Acc:0.03
+Iteration:1800	Prior Loss:3.86	Iden Loss:833333376.00	Attack Acc:0.03
+Iteration:2100	Prior Loss:3.95	Iden Loss:816666688.00	Attack Acc:0.05
+Iteration:2400	Prior Loss:3.54	Iden Loss:750000000.00	Attack Acc:0.03
+Time:78.40
+Time:0.36	Seed:0	Acc:0.05	
+Time:0.36	Seed:1	Acc:0.05	
+Time:0.38	Seed:2	Acc:0.03	
+Time:0.39	Seed:3	Acc:0.07	
+Time:0.42	Seed:4	Acc:0.02	
+Acc:0.04	Acc_5:0.08	Acc_var:0.0004	Acc_var5:0.0001
+--------------------- Attack batch [3]------------------------------
+Iteration:300	Prior Loss:5.13	Iden Loss:983333312.00	Attack Acc:0.00
+Iteration:600	Prior Loss:4.48	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:900	Prior Loss:4.34	Iden Loss:966666624.00	Attack Acc:0.00
+Iteration:1200	Prior Loss:4.01	Iden Loss:950000000.00	Attack Acc:0.02
+Iteration:1500	Prior Loss:3.84	Iden Loss:950000000.00	Attack Acc:0.02
+Iteration:1800	Prior Loss:3.67	Iden Loss:916666624.00	Attack Acc:0.02
+Iteration:2100	Prior Loss:3.40	Iden Loss:900000000.00	Attack Acc:0.02
+Iteration:2400	Prior Loss:3.31	Iden Loss:900000000.00	Attack Acc:0.00
+Time:78.53
+Time:0.34	Seed:0	Acc:0.00	
+Time:0.36	Seed:1	Acc:0.03	
+Time:0.36	Seed:2	Acc:0.03	
+Time:0.35	Seed:3	Acc:0.00	
+Time:0.38	Seed:4	Acc:0.03	
+Acc:0.02	Acc_5:0.07	Acc_var:0.0003	Acc_var5:0.0003
+--------------------- Attack batch [4]------------------------------
+Iteration:300	Prior Loss:4.62	Iden Loss:983333312.00	Attack Acc:0.00
+Iteration:600	Prior Loss:4.51	Iden Loss:1000000064.00	Attack Acc:0.00
+Iteration:900	Prior Loss:4.12	Iden Loss:950000000.00	Attack Acc:0.00
+Iteration:1200	Prior Loss:4.12	Iden Loss:950000000.00	Attack Acc:0.00
+Iteration:1500	Prior Loss:3.76	Iden Loss:933333312.00	Attack Acc:0.02
+Iteration:1800	Prior Loss:3.85	Iden Loss:916666624.00	Attack Acc:0.05
+Iteration:2100	Prior Loss:3.73	Iden Loss:883333312.00	Attack Acc:0.03
+Iteration:2400	Prior Loss:3.49	Iden Loss:850000000.00	Attack Acc:0.02
+Time:78.22
+Time:0.35	Seed:0	Acc:0.03	
+Time:0.36	Seed:1	Acc:0.05	
+Time:0.35	Seed:2	Acc:0.03	
+Time:0.37	Seed:3	Acc:0.07	
+Time:0.37	Seed:4	Acc:0.05	
+Acc:0.05	Acc_5:0.07	Acc_var:0.0002	Acc_var5:0.0001
+Average Acc:0.03	Average Acc5:0.06	Average Acc_var:0.0002	Average Acc_var5:0.0001

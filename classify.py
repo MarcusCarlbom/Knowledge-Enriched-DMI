@@ -7,6 +7,7 @@ import torchvision.models
 import torch.nn.functional as F
 from torch.nn.modules.loss import _Loss
 import math, evolve
+from defense import defend_output
 
 class Flatten(nn.Module):
     def forward(self, input):
@@ -28,6 +29,8 @@ class Mnist_CNN(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
         res = self.fc2(x)
+        # Add defenses to the output of the model
+        res = defend_output(res, noise_std=getattr(self, 'noise_std', 0.0), top_k=getattr(self, 'top_k', 0), truncate_decimals=getattr(self, 'truncate_decimals', 0))
         return [x, res]
 
 class VGG16(nn.Module):
@@ -46,7 +49,8 @@ class VGG16(nn.Module):
         feature = feature.view(feature.size(0), -1)
         feature = self.bn(feature)
         res = self.fc_layer(feature)
-        
+        # Add defenses to the output of the model
+        res = defend_output(res, noise_std=getattr(self, 'noise_std', 0.0), top_k=getattr(self, 'top_k', 0), truncate_decimals=getattr(self, 'truncate_decimals', 0))
         return [feature, res]
 
     def predict(self, x):

@@ -37,9 +37,12 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description='Step2: targeted recovery')
     parser.add_argument('--model', default='VGG16', help='VGG16 | IR152 | FaceNet64')
-    parser.add_argument('--device', type=str, default='4,5,6,7', help='Device to use. Like cuda, cuda:0 or cpu')
+    parser.add_argument('--device', type=str, default='0', help='Device to use. Like cuda, cuda:0 or cpu')
     parser.add_argument('--improved_flag', action='store_true', default=False, help='use improved k+1 GAN')
     parser.add_argument('--dist_flag', action='store_true', default=False, help='use distributional recovery')
+    parser.add_argument('--noise_std', type=float, default=0.0, help='Std of Gaussian noise defense. 0.0 disables it.')
+    parser.add_argument('--top_k', type=int, default=0, help='Number of top classes to keep. 0 disables it.')
+    parser.add_argument('--truncate_decimals', type=int, default=0, help='Decimal places to truncate confidence scores to. 0 disables truncation.')
     args = parser.parse_args()
     logger = get_logger()
 
@@ -85,6 +88,9 @@ if __name__ == "__main__":
     T = torch.nn.DataParallel(T).cuda()
     ckp_T = torch.load(path_T)
     T.load_state_dict(ckp_T['state_dict'], strict=False)
+    T.module.noise_std = args.noise_std
+    T.module.top_k = args.top_k
+    T.module.truncate_decimals = args.truncate_decimals
 
     E = FaceNet(1000)
     E = torch.nn.DataParallel(E).cuda()
